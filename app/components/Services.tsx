@@ -21,8 +21,7 @@ const services = [
     title: "Digital Marketing",
     desc: "High-impact campaigns that drive traffic, engagement, and real conversions.",
     icon: FaBullhorn,
-    image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=1200&q=80",
-    link: "https://www.facebook.com/marvelcreatives96",
+    image: "/services/digitalmarketing.jpg",
   },
   {
     title: "Printing Solutions",
@@ -41,13 +40,13 @@ const services = [
     title: "3D Signage",
     desc: "Eye-catching indoor and outdoor signage that builds strong brand visibility.",
     icon: FaCubes,
-    image: "https://images.unsplash.com/photo-1504805572947-34fad45aed93?auto=format&fit=crop&w=1200&q=80",
+    image: "/services/3D-signage.png",
   },
   {
     title: "Web Design",
     desc: "Modern, fast, and conversion-focused websites built for performance.",
     icon: FaGlobe,
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    image: "/services/web-design.jpg",
   },
 ];
 
@@ -116,24 +115,6 @@ export default function Services() {
                       loop
                       autoPlay
                     />
-                  ) : service.link ? (
-                    <a
-                      href={service.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full h-full"
-                    >
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
-                      />
-                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                          Visit Facebook
-                        </span>
-                      </div>
-                    </a>
                   ) : (
                     <img
                       src={service.image}
@@ -177,16 +158,7 @@ export default function Services() {
 
                   {/* CTA hint */}
                   <div className="mt-6 flex items-center justify-between">
-                    {service.link ? (
-                      <a
-                        href={service.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-red-600 hover:text-red-700 font-medium"
-                      >
-                        Visit Facebook →
-                      </a>
-                    ) : service.isVideo ? (
+                    {service.isVideo ? (
                       <span className="text-xs text-gray-400">
                         Watch the process
                       </span>

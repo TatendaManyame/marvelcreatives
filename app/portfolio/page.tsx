@@ -12,8 +12,8 @@ import {
   Palette,
   Briefcase,
   Printer,
-  Heart,
-  Sparkles
+  Sparkles,
+  ArrowRight
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,6 +25,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function PortfolioPage() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const descRef = useRef<HTMLParagraphElement | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImage, setLightboxImage] = useState("");
   const [lightboxTitle, setLightboxTitle] = useState("");
@@ -32,13 +35,39 @@ export default function PortfolioPage() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const items = gsap.utils.toArray(".portfolio-card");
+      // ===== Hero Animations =====
+      // Title animation
+      gsap.from(titleRef.current, {
+        y: 60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top 80%",
+        },
+      });
 
+      // Description animation
+      gsap.from(descRef.current, {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        delay: 0.3,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top 80%",
+        },
+      });
+
+      // Portfolio cards animation with stagger
+      const items = gsap.utils.toArray(".portfolio-card");
       gsap.from(items, {
         y: 80,
         opacity: 0,
         duration: 1,
-        stagger: 0.1,
+        stagger: 0.12,
         ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -46,6 +75,35 @@ export default function PortfolioPage() {
           once: true,
         },
       });
+
+      // Category headers animation
+      const headers = gsap.utils.toArray(".category-header");
+      gsap.from(headers, {
+        x: -40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+      });
+
+      // Section indicators pulse animation
+      const indicators = document.querySelectorAll(".indicator-dot");
+      indicators.forEach((dot, i) => {
+        gsap.to(dot, {
+          scale: 1.5,
+          opacity: 0.5,
+          duration: 1,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: i * 0.2,
+        });
+      });
+
     }, sectionRef);
 
     return () => ctx.revert();
@@ -75,7 +133,7 @@ export default function PortfolioPage() {
     direction: "left" | "right"
   ) => {
     if (galleryRef) {
-      const scrollAmount = 400;
+      const scrollAmount = 350;
       galleryRef.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
         behavior: "smooth",
@@ -89,32 +147,32 @@ export default function PortfolioPage() {
       icon: Palette,
       items: [
         {
-          title: "Prevail Mart Branding 1",
+          title: "Prevail Mart Branding",
           image: "/services/prevailmart1.jpeg",
           description: "Complete brand identity for Prevail Mart retail chain"
         },
         {
-          title: "Prevail Mart Branding 2",
+          title: "Prevail Mart Identity",
           image: "/services/prevailmart2.jpeg",
           description: "Brand identity system and visual guidelines"
         },
         {
-          title: "Prevail Mart Branding 3",
+          title: "Prevail Mart Collateral",
           image: "/services/prevailmart3.jpeg",
           description: "Marketing collateral and brand materials"
         },
         {
-          title: "Prevail Mart Branding 4",
+          title: "Prevail Mart Signage",
           image: "/services/prevailmart4.jpeg",
           description: "In-store signage and brand experience design"
         },
         {
-          title: "Elephant Branding 1",
+          title: "Elephant Branding",
           image: "/services/elephant branding.jpeg",
           description: "Complete brand identity and visual system for Elephant brand"
         },
         {
-          title: "Elephant Branding 2",
+          title: "Elephant Identity",
           image: "/services/elephant branding2.jpeg",
           description: "Extended brand identity and collateral design"
         },
@@ -183,22 +241,6 @@ export default function PortfolioPage() {
       ],
     },
     {
-      category: "Funeral Services",
-      icon: Heart,
-      items: [
-        {
-          title: "Funeral Banner Design 1",
-          image: "/services/funeral1.jpeg",
-          description: "Dignified funeral banner design with care and respect"
-        },
-        {
-          title: "Funeral Banner Design 2",
-          image: "/services/funeral2.jpeg",
-          description: "Professional funeral banner and memorial design"
-        },
-      ],
-    },
-    {
       category: "Creative Services",
       icon: Sparkles,
       items: [
@@ -230,9 +272,9 @@ export default function PortfolioPage() {
         ref={sectionRef}
         className="overflow-hidden bg-white"
       >
-        {/* ===== HERO ===== */}
-        <div className="relative min-h-[50vh] md:min-h-[60vh] flex items-center overflow-hidden pt-16 md:pt-20">
-          {/* Background */}
+        {/* ===== HERO with Enhanced Animations ===== */}
+        <div ref={heroRef} className="relative min-h-[50vh] md:min-h-[60vh] flex items-center overflow-hidden pt-16 md:pt-20">
+          {/* Background with Parallax */}
           <div className="absolute inset-0">
             <Image
               src="/services/business cards1.jpeg"
@@ -243,29 +285,46 @@ export default function PortfolioPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/70" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent" />
           </div>
 
-          {/* Decorative Elements */}
-          <div className="absolute top-20 right-20 w-64 h-64 bg-red-600/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 left-20 w-96 h-96 bg-red-600/5 rounded-full blur-3xl" />
+          {/* Animated Decorative Elements */}
+          <div className="absolute top-20 right-20 w-64 h-64 bg-red-600/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-red-600/5 rounded-full blur-3xl animate-pulse delay-1000" />
+          
+          {/* Floating Particles */}
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-red-400/20 rounded-full animate-float"
+                style={{
+                  left: `${10 + i * 15}%`,
+                  top: `${20 + i * 10}%`,
+                  animationDelay: `${i * 0.5}s`,
+                  animationDuration: `${4 + i * 0.5}s`
+                }}
+              />
+            ))}
+          </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20 w-full">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded-full bg-red-600/20 border border-red-500/30 px-4 py-1.5 md:px-5 md:py-2 text-xs md:text-sm font-medium text-red-400 mb-4 md:mb-6">
-                <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-red-500 rounded-full animate-pulse" />
+              <div className="inline-flex items-center gap-2 rounded-full bg-red-600/20 border border-red-500/30 px-4 py-1.5 md:px-5 md:py-2 text-xs md:text-sm font-medium text-red-400 mb-4 md:mb-6 animate-pulse">
+                <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-red-500 rounded-full" />
                 Our Portfolio
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-tight">
+              <h1 ref={titleRef} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-tight">
                 Creative Excellence
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">
                   In Every Project
                 </span>
               </h1>
 
-              <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-red-500 to-red-400 mt-4 md:mt-6 rounded-full" />
+              <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-red-500 to-red-400 mt-4 md:mt-6 rounded-full animate-pulse" />
 
-              <p className="mt-4 md:mt-6 text-gray-300 text-base md:text-lg leading-relaxed max-w-lg">
+              <p ref={descRef} className="mt-4 md:mt-6 text-gray-300 text-base md:text-lg leading-relaxed max-w-lg">
                 Explore our diverse portfolio of branding, print materials, and creative 
                 projects that have helped businesses stand out and succeed.
               </p>
@@ -273,56 +332,62 @@ export default function PortfolioPage() {
           </div>
         </div>
 
-        {/* ===== PORTFOLIO GALLERY ===== */}
+        {/* ===== PORTFOLIO GALLERY with Enhanced Mobile Experience ===== */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24">
           {portfolio.map((section, categoryIndex) => {
             const IconComponent = section.icon;
             return (
               <div key={categoryIndex} className="mb-16 md:mb-20 last:mb-0">
-                {/* Category Header */}
-                <div className="flex items-center justify-between mb-6 md:mb-10">
+                {/* Category Header with Animation */}
+                <div className="category-header flex items-center justify-between mb-6 md:mb-10">
                   <div>
                     <div className="flex items-center gap-2 md:gap-3">
-                      <IconComponent className="w-7 h-7 md:w-8 md:h-8 text-red-600" />
-                      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
+                      <div className="p-2 bg-red-50 rounded-xl group-hover:scale-110 transition-transform">
+                        <IconComponent className="w-5 h-5 md:w-8 md:h-8 text-red-600" />
+                      </div>
+                      <h2 className="text-xl md:text-3xl lg:text-4xl font-bold text-gray-900">
                         {section.category}
                       </h2>
                     </div>
                     <div className="w-12 md:w-16 h-1 bg-gradient-to-r from-red-600 to-red-400 mt-2 rounded-full" />
                   </div>
-                  <span className="text-xs md:text-sm text-gray-400">
+                  <span className="text-xs md:text-sm text-gray-400 bg-gray-50 px-3 py-1 rounded-full">
                     {section.items.length} projects
                   </span>
                 </div>
 
-                {/* Gallery */}
-                <div className="relative group/gallery">
-                  {/* Left Arrow */}
+                {/* Gallery with Touch Optimizations */}
+                <div className="relative">
+                  {/* Left Arrow - Hidden on mobile */}
                   <button
                     onClick={() => {
                       const gallery = document.getElementById(`gallery-${categoryIndex}`) as HTMLDivElement | null;
                       scrollGallery(gallery, "left");
                     }}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-xl rounded-full p-2 md:p-3 opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 -translate-x-3 md:-translate-x-4 hover:translate-x-0 border border-gray-200"
+                    className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-xl rounded-full p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-4 hover:translate-x-0 border border-gray-200"
                   >
-                    <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-800" />
+                    <ChevronLeft className="w-6 h-6 text-gray-800" />
                   </button>
 
                   {/* Scrollable Container */}
                   <div
                     id={`gallery-${categoryIndex}`}
-                    className="flex gap-4 md:gap-6 overflow-x-auto pb-4 md:pb-6 scrollbar-hide scroll-smooth"
-                    style={{ scrollSnapType: "x mandatory" }}
+                    className="flex gap-3 sm:gap-4 md:gap-6 overflow-x-auto pb-4 md:pb-6 scrollbar-hide scroll-smooth"
+                    style={{ 
+                      scrollSnapType: "x mandatory",
+                      WebkitOverflowScrolling: "touch",
+                      touchAction: "pan-x"
+                    }}
                   >
                     {section.items.map((item, index) => (
                       <div
                         key={index}
-                        className="portfolio-card flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px]"
+                        className="portfolio-card flex-shrink-0 w-[260px] sm:w-[280px] md:w-[380px]"
                         style={{ scrollSnapAlign: "start" }}
                       >
                         <div className="group relative bg-white rounded-2xl md:rounded-3xl overflow-hidden border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                          {/* Image/Video */}
-                          <div className="h-[240px] sm:h-[280px] md:h-[300px] overflow-hidden relative">
+                          {/* Image/Video with Hover Zoom */}
+                          <div className="h-[200px] sm:h-[240px] md:h-[300px] overflow-hidden relative">
                             {item.isVideo ? (
                               <>
                                 <video
@@ -334,12 +399,12 @@ export default function PortfolioPage() {
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                 {/* Video Play Icon */}
                                 <div className="absolute inset-0 flex items-center justify-center">
-                                  <div className="w-16 h-16 md:w-20 md:h-20 bg-red-600/80 rounded-full flex items-center justify-center backdrop-blur-sm">
-                                    <Play className="w-8 h-8 md:w-10 md:h-10 text-white ml-1" />
+                                  <div className="w-14 h-14 md:w-20 md:h-20 bg-red-600/80 rounded-full flex items-center justify-center backdrop-blur-sm animate-pulse">
+                                    <Play className="w-6 h-6 md:w-10 md:h-10 text-white ml-1" />
                                   </div>
                                 </div>
                                 {/* Video Badge */}
-                                <div className="absolute top-4 right-4 bg-red-600 text-white text-xs px-3 py-1.5 rounded-full font-medium">
+                                <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-red-600 text-white text-[10px] md:text-xs px-2 py-1 md:px-3 md:py-1.5 rounded-full font-medium">
                                   Video
                                 </div>
                               </>
@@ -349,18 +414,19 @@ export default function PortfolioPage() {
                                 alt={item.title}
                                 fill
                                 className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                sizes="(max-width: 640px) 260px, (max-width: 768px) 280px, 380px"
                               />
                             )}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             
-                            {/* Hover Overlay */}
-                            <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            {/* Hover Overlay with Slide Up */}
+                            <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
                               <p className="text-white/90 text-xs md:text-sm leading-relaxed mb-2 md:mb-3">
                                 {item.description}
                               </p>
                               <button
                                 onClick={() => openLightbox(item.image, item.title, item.isVideo || false)}
-                                className="inline-flex items-center gap-1 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white rounded-full text-xs md:text-sm transition-all duration-300 w-fit"
+                                className="inline-flex items-center gap-1 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white rounded-full text-xs md:text-sm transition-all duration-300 w-fit group-hover:scale-105"
                               >
                                 {item.isVideo ? 'Play Video' : 'View Project'}
                                 {item.isVideo ? <Play className="w-3 h-3 md:w-4 md:h-4" /> : <ExternalLink className="w-3 h-3 md:w-4 md:h-4" />}
@@ -372,14 +438,14 @@ export default function PortfolioPage() {
                           <div className="p-4 md:p-6">
                             <div className="flex items-start justify-between">
                               <div>
-                                <h3 className="text-gray-900 font-bold text-base md:text-lg group-hover:text-red-600 transition-colors">
+                                <h3 className="text-gray-900 font-bold text-sm md:text-lg group-hover:text-red-600 transition-colors">
                                   {item.title}
                                 </h3>
                                 <p className="text-gray-500 text-xs md:text-sm mt-1 line-clamp-2">
                                   {item.description}
                                 </p>
                               </div>
-                              <div className="w-6 h-6 md:w-8 md:h-8 bg-red-50 rounded-full flex items-center justify-center flex-shrink-0">
+                              <div className="w-6 h-6 md:w-8 md:h-8 bg-red-50 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                                 <span className="text-red-600 text-xs md:text-sm font-bold">
                                   {String(index + 1).padStart(2, '0')}
                                 </span>
@@ -392,46 +458,51 @@ export default function PortfolioPage() {
                     ))}
                   </div>
 
-                  {/* Right Arrow */}
+                  {/* Right Arrow - Hidden on mobile */}
                   <button
                     onClick={() => {
                       const gallery = document.getElementById(`gallery-${categoryIndex}`) as HTMLDivElement | null;
                       scrollGallery(gallery, "right");
                     }}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-xl rounded-full p-2 md:p-3 opacity-0 group-hover/gallery:opacity-100 transition-all duration-300 translate-x-3 md:translate-x-4 hover:translate-x-0 border border-gray-200"
+                    className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white shadow-xl rounded-full p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 hover:translate-x-0 border border-gray-200"
                   >
-                    <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-800" />
+                    <ChevronRight className="w-6 h-6 text-gray-800" />
                   </button>
                 </div>
 
-                {/* Gallery Indicator */}
-                <div className="flex justify-center mt-3 md:mt-4 gap-1">
+                {/* Gallery Indicator with Animation */}
+                <div className="flex justify-center mt-3 md:mt-4 gap-1.5">
                   {section.items.map((_, idx) => (
                     <div
                       key={idx}
-                      className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-gray-300"
+                      className="indicator-dot w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-300"
                     />
                   ))}
+                </div>
+
+                {/* Mobile Scroll Hint with Animation */}
+                <div className="text-center mt-2 text-xs text-gray-400 md:hidden animate-bounce">
+                  ← Swipe to see more →
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* ===== CTA SECTION ===== */}
+        {/* ===== CTA SECTION with Enhanced Effects ===== */}
         <div className="px-4 sm:px-6 pb-16 md:pb-28">
           <div className="max-w-6xl mx-auto">
             <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-[30px] md:rounded-[40px] p-10 md:p-16 lg:p-20 text-center overflow-hidden">
               {/* Background Decorations */}
               <div className="absolute inset-0 bg-[url('/location/marvel1.jpeg')] opacity-5 bg-cover bg-center" />
-              <div className="absolute top-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-red-600/10 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-64 md:w-96 h-64 md:h-96 bg-red-600/10 rounded-full blur-3xl" />
+              <div className="absolute top-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-red-600/10 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute bottom-0 left-0 w-64 md:w-96 h-64 md:h-96 bg-red-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
               
               {/* Pattern Dots */}
               <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[size:20px_20px]" />
 
               <div className="relative z-10">
-                <span className="inline-block px-4 md:px-5 py-1.5 md:py-2 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-[10px] md:text-xs tracking-[0.3em] backdrop-blur-sm mb-4 md:mb-6">
+                <span className="inline-block px-4 md:px-5 py-1.5 md:py-2 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-[10px] md:text-xs tracking-[0.3em] backdrop-blur-sm mb-4 md:mb-6 animate-pulse">
                   LET&apos;S CREATE TOGETHER
                 </span>
 
@@ -449,10 +520,10 @@ export default function PortfolioPage() {
 
                 <Link
                   href="/contact"
-                  className="mt-6 md:mt-10 inline-flex items-center gap-2 md:gap-3 px-6 md:px-10 py-3 md:py-4 bg-red-600 hover:bg-red-700 text-white rounded-full font-semibold text-sm md:text-base transition-all duration-300 hover:scale-105 shadow-lg shadow-red-600/30"
+                  className="mt-6 md:mt-10 inline-flex items-center gap-2 md:gap-3 px-6 md:px-10 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-full font-semibold text-sm md:text-base transition-all duration-300 hover:scale-105 shadow-lg shadow-red-600/30 group"
                 >
                   Start Your Project
-                  <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
+                  <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </div>
@@ -520,6 +591,13 @@ export default function PortfolioPage() {
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
           overflow: hidden;
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        .animate-float {
+          animation: float linear infinite;
         }
       `}</style>
     </>

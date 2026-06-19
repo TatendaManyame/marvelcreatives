@@ -205,6 +205,7 @@ export default function RootLayout({
             min-h-screen 
             flex 
             flex-col
+            relative
           "
         >
 
@@ -232,8 +233,10 @@ export default function RootLayout({
           </main>
 
 
-
-          <WhatsAppButton />
+          {/* WhatsApp Button Container - Fixed positioning wrapper */}
+          <div className="fixed bottom-40 right-6 z-50">
+            <WhatsAppButton />
+          </div>
 
 
         </div>
