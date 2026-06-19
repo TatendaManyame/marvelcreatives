@@ -78,9 +78,8 @@ export default function Services() {
     { 
       title: "Digital Marketing", 
       desc: "Data-driven marketing strategies across all digital channels to increase visibility, engagement, and conversions.",
-      image: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=800&q=80",
-      type: "external",
-      link: "https://www.facebook.com/marvelcreatives96"
+      image: "/services/digitalmarketing.jpg",
+      type: "image"
     },
     { 
       title: "Printing Solutions", 
@@ -89,17 +88,16 @@ export default function Services() {
       type: "video"
     },
     { 
-      title: "Signage & Outdoor Ads", 
+      title: "3D Signage", 
       desc: "Eye-catching indoor and outdoor signage solutions that attract attention and reinforce your brand presence.",
-      image: "/services/billboards2.jpeg",
+      image: "/services/3D-signage.png",
       type: "image"
     },
     { 
       title: "Web Design", 
       desc: "Modern, responsive websites designed to convert visitors into customers with seamless user experiences.",
-      image: "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800&q=80",
-      type: "external",
-      link: "https://www.instagram.com/marvel.creatives"
+      image: "/services/web-design.jpg",
+      type: "image"
     },
   ];
 
@@ -126,30 +124,6 @@ export default function Services() {
             Video
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-        </div>
-      );
-    } else if (service.type === "external") {
-      return (
-        <div className="h-56 overflow-hidden relative">
-          <img
-            src={service.image}
-            alt={service.title}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-          {/* External Link Badge */}
-          <div className="absolute top-4 right-4 bg-blue-600 text-white text-xs px-3 py-1.5 rounded-full font-medium shadow-lg flex items-center gap-1">
-            <ExternalLinkIcon className="w-3 h-3" />
-            External
-          </div>
-          {/* Number Badge */}
-          <div className="absolute top-4 left-4 w-12 h-12 flex items-center justify-center bg-red-600 text-white text-xl font-black rounded-xl shadow-lg">
-            {String(index + 1).padStart(2, '0')}
-          </div>
-          {/* Category Tag */}
-          <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full border border-white/10">
-            {service.title.split(' ')[0]}
-          </div>
         </div>
       );
     } else {
@@ -262,7 +236,6 @@ export default function Services() {
         <div className="max-w-7xl mx-auto px-6 pb-28">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {enhancedServices.map((service, index) => {
-              const isExternal = service.type === "external";
               const isVideo = service.type === "video";
               
               return (
@@ -276,38 +249,13 @@ export default function Services() {
 
                     {/* CONTENT */}
                     <div className="p-8">
-                      <div className="flex items-start justify-between">
-                        <h3 className="text-2xl font-bold text-gray-900 group-hover:text-red-600 transition-colors duration-300">
-                          {service.title}
-                        </h3>
-                        {isExternal && service.link && (
-                          <a
-                            href={service.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-700 transition-colors"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <ExternalLinkIcon className="w-5 h-5" />
-                          </a>
-                        )}
-                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900 group-hover:text-red-600 transition-colors duration-300">
+                        {service.title}
+                      </h3>
 
                       <p className="mt-3 text-gray-600 leading-relaxed">
                         {service.desc}
                       </p>
-
-                      {isExternal && service.link && (
-                        <a
-                          href={service.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-4 inline-flex items-center gap-2 text-sm text-red-600 hover:text-red-700 font-medium transition-colors"
-                        >
-                          Learn More
-                          <ExternalLinkIcon className="w-4 h-4" />
-                        </a>
-                      )}
 
                       {isVideo && (
                         <div className="mt-4 inline-flex items-center gap-2 text-sm text-red-600 font-medium">
