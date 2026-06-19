@@ -153,27 +153,27 @@ export default function PortfolioPage() {
         },
         {
           title: "Prevail Mart Identity",
-          image: "/services/prevailmart2.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Brand identity system and visual guidelines"
         },
         {
           title: "Prevail Mart Collateral",
-          image: "/services/prevailmart3.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Marketing collateral and brand materials"
         },
         {
           title: "Prevail Mart Signage",
-          image: "/services/prevailmart4.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "In-store signage and brand experience design"
         },
         {
           title: "Elephant Branding",
-          image: "/services/elephant branding.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Complete brand identity and visual system for Elephant brand"
         },
         {
           title: "Elephant Identity",
-          image: "/services/elephant branding2.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Extended brand identity and collateral design"
         },
       ],
@@ -184,32 +184,32 @@ export default function PortfolioPage() {
       items: [
         {
           title: "Corporate Branding 1",
-          image: "/branding/branding1.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Professional corporate brand identity design"
         },
         {
           title: "Corporate Branding 2",
-          image: "/branding/branding2.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Complete brand identity system for businesses"
         },
         {
           title: "Corporate Branding 3",
-          image: "/branding/brnading3.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Modern brand identity and visual guidelines"
         },
         {
           title: "Corporate Branding 4",
-          image: "/branding/branding4.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Creative brand identity solutions"
         },
         {
           title: "Corporate Branding 5",
-          image: "/branding/branding5.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Innovative brand design and strategy"
         },
         {
           title: "Corporate Branding 6",
-          image: "/branding/branding6.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Complete brand identity and visual systems"
         },
       ],
@@ -220,22 +220,22 @@ export default function PortfolioPage() {
       items: [
         {
           title: "Business Cards Design",
-          image: "/services/business cards1.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Premium business card designs for professional brands"
         },
         {
           title: "Business Cards Collection",
-          image: "/services/business cards2.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Variety of business card styles and finishes"
         },
         {
           title: "Billboard Advertising",
-          image: "/services/billboards1.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "High-impact billboard advertising solutions"
         },
         {
           title: "Outdoor Billboards",
-          image: "/services/billboards2.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Strategic outdoor advertising campaigns"
         },
       ],
@@ -246,17 +246,17 @@ export default function PortfolioPage() {
       items: [
         {
           title: "Banner Design",
-          image: "/services/banner1.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Professional banner designs for events and promotions"
         },
         {
           title: "Marketing Banners",
-          image: "/services/banner2.jpeg",
+          image: "/services/prevailmart1.jpeg",
           description: "Creative banner solutions for brand visibility"
         },
         {
           title: "Printing Process",
-          image: "/services/printing video.mp4",
+          image: "/services/prevailmart1.jpeg",
           description: "Watch our professional printing process in action",
           isVideo: true
         },
