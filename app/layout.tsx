@@ -4,6 +4,9 @@ import "./globals.css";
 
 import WhatsAppButton from "./components/WhatsAppButton";
 
+export const dynamic = "force-static";
+export const revalidate = 0;
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
