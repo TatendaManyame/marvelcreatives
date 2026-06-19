@@ -1,6 +1,5 @@
 "use client";
 
-import { services } from "../data/services";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
