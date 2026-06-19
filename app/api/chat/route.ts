@@ -1,17 +1,22 @@
 // app/api/chat/route.ts
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Initialize OpenAI only if API key exists
+const openai = process.env.OPENAI_API_KEY 
+  ? new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    })
+  : null;
 
-const systemPrompt = `You are Marvel AI, the virtual assistant for Marvel Creatives, a UAE-based creative agency. 
+const systemPrompt = `You are Marvel AI, the virtual assistant for Marvel Creatives, a Harare-based creative agency. 
 
 About Marvel Creatives:
-- We offer: Branding, Signage & Outdoor, Digital Marketing, Printing, and Web Design
-- Located in UAE
+- We offer: Branding, Graphic Design, Digital Marketing, Printing Solutions, Signage & Outdoor Ads, and Web Design
+- Located in Harare, Zimbabwe
 - We help businesses build powerful brand identities
 - Our mission: We don't just design, we build brands that sell
 
@@ -26,16 +31,27 @@ Your role:
 8. Always encourage users to contact us for detailed discussions
 
 Services pricing range (give ballpark only):
-- Branding: Starting from AED 5,000
-- Signage: Starting from AED 3,000
-- Digital Marketing: Starting from AED 2,500/month
-- Printing: Starting from AED 1,000
-- Web Design: Starting from AED 8,000
+- Branding: Starting from $500
+- Graphic Design: Starting from $200
+- Digital Marketing: Starting from $300/month
+- Printing Solutions: Starting from $100
+- Signage & Outdoor Ads: Starting from $300
+- Web Design: Starting from $500
 
 If someone asks something you don't know, suggest they contact our team directly.`;
 
 export async function POST(req: Request) {
   try {
+    // Check if OpenAI is configured
+    if (!openai) {
+      return NextResponse.json(
+        { 
+          message: "I'm currently unavailable. Please contact us directly at info@marvelcreatives.com or +263 788 991 893. We'd love to hear from you! 🤝" 
+        },
+        { status: 503 }
+      );
+    }
+
     const { messages } = await req.json();
 
     const completion = await openai.chat.completions.create({
@@ -54,7 +70,9 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Chat API Error:", error);
     return NextResponse.json(
-      { message: "I'm having trouble connecting. Please try again or contact us directly at info@marvelcreatives.com" },
+      { 
+        message: "I'm having trouble connecting. Please try again or contact us directly at info@marvelcreatives.com or +263 788 991 893. We're here to help! 💪" 
+      },
       { status: 500 }
     );
   }
