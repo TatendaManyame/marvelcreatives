@@ -36,7 +36,6 @@ export default function PortfolioPage() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // ===== Hero Animations =====
-      // Title animation
       gsap.from(titleRef.current, {
         y: 60,
         opacity: 0,
@@ -48,7 +47,6 @@ export default function PortfolioPage() {
         },
       });
 
-      // Description animation
       gsap.from(descRef.current, {
         y: 40,
         opacity: 0,
@@ -61,7 +59,6 @@ export default function PortfolioPage() {
         },
       });
 
-      // Portfolio cards animation with stagger
       const items = gsap.utils.toArray(".portfolio-card");
       gsap.from(items, {
         y: 80,
@@ -76,7 +73,6 @@ export default function PortfolioPage() {
         },
       });
 
-      // Category headers animation
       const headers = gsap.utils.toArray(".category-header");
       gsap.from(headers, {
         x: -40,
@@ -90,7 +86,6 @@ export default function PortfolioPage() {
         },
       });
 
-      // Section indicators pulse animation
       const indicators = document.querySelectorAll(".indicator-dot");
       indicators.forEach((dot, i) => {
         gsap.to(dot, {
@@ -153,27 +148,27 @@ export default function PortfolioPage() {
         },
         {
           title: "Prevail Mart Identity",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/prevailmart2.jpeg",
           description: "Brand identity system and visual guidelines"
         },
         {
           title: "Prevail Mart Collateral",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/prevailmart3.jpeg",
           description: "Marketing collateral and brand materials"
         },
         {
           title: "Prevail Mart Signage",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/prevailmart4.jpeg",
           description: "In-store signage and brand experience design"
         },
         {
           title: "Elephant Branding",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/elephant branding.jpeg",
           description: "Complete brand identity and visual system for Elephant brand"
         },
         {
           title: "Elephant Identity",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/elephant branding2.jpeg",
           description: "Extended brand identity and collateral design"
         },
       ],
@@ -184,32 +179,32 @@ export default function PortfolioPage() {
       items: [
         {
           title: "Corporate Branding 1",
-          image: "/services/prevailmart1.jpeg",
+          image: "/branding/branding1.jpeg",
           description: "Professional corporate brand identity design"
         },
         {
           title: "Corporate Branding 2",
-          image: "/services/prevailmart1.jpeg",
+          image: "/branding/branding2.jpeg",
           description: "Complete brand identity system for businesses"
         },
         {
           title: "Corporate Branding 3",
-          image: "/services/prevailmart1.jpeg",
+          image: "/branding/brnading3.jpeg",
           description: "Modern brand identity and visual guidelines"
         },
         {
           title: "Corporate Branding 4",
-          image: "/services/prevailmart1.jpeg",
+          image: "/branding/branding4.jpeg",
           description: "Creative brand identity solutions"
         },
         {
           title: "Corporate Branding 5",
-          image: "/services/prevailmart1.jpeg",
+          image: "/branding/branding5.jpeg",
           description: "Innovative brand design and strategy"
         },
         {
           title: "Corporate Branding 6",
-          image: "/services/prevailmart1.jpeg",
+          image: "/branding/branding6.jpeg",
           description: "Complete brand identity and visual systems"
         },
       ],
@@ -220,22 +215,22 @@ export default function PortfolioPage() {
       items: [
         {
           title: "Business Cards Design",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/business cards1.jpeg",
           description: "Premium business card designs for professional brands"
         },
         {
           title: "Business Cards Collection",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/business cards2.jpeg",
           description: "Variety of business card styles and finishes"
         },
         {
           title: "Billboard Advertising",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/billboards1.jpeg",
           description: "High-impact billboard advertising solutions"
         },
         {
           title: "Outdoor Billboards",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/billboards2.jpeg",
           description: "Strategic outdoor advertising campaigns"
         },
       ],
@@ -246,17 +241,17 @@ export default function PortfolioPage() {
       items: [
         {
           title: "Banner Design",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/banner1.jpeg",
           description: "Professional banner designs for events and promotions"
         },
         {
           title: "Marketing Banners",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/banner2.jpeg",
           description: "Creative banner solutions for brand visibility"
         },
         {
           title: "Printing Process",
-          image: "/services/prevailmart1.jpeg",
+          image: "/services/printing video.mp4",
           description: "Watch our professional printing process in action",
           isVideo: true
         },
@@ -274,7 +269,6 @@ export default function PortfolioPage() {
       >
         {/* ===== HERO with Enhanced Animations ===== */}
         <div ref={heroRef} className="relative min-h-[50vh] md:min-h-[60vh] flex items-center overflow-hidden pt-16 md:pt-20">
-          {/* Background with Parallax */}
           <div className="absolute inset-0">
             <Image
               src="/services/business cards1.jpeg"
@@ -288,11 +282,9 @@ export default function PortfolioPage() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent" />
           </div>
 
-          {/* Animated Decorative Elements */}
           <div className="absolute top-20 right-20 w-64 h-64 bg-red-600/10 rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-20 left-20 w-96 h-96 bg-red-600/5 rounded-full blur-3xl animate-pulse delay-1000" />
           
-          {/* Floating Particles */}
           <div className="absolute inset-0 pointer-events-none">
             {[...Array(6)].map((_, i) => (
               <div
@@ -332,13 +324,12 @@ export default function PortfolioPage() {
           </div>
         </div>
 
-        {/* ===== PORTFOLIO GALLERY with Enhanced Mobile Experience ===== */}
+        {/* ===== PORTFOLIO GALLERY ===== */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24">
           {portfolio.map((section, categoryIndex) => {
             const IconComponent = section.icon;
             return (
               <div key={categoryIndex} className="mb-16 md:mb-20 last:mb-0">
-                {/* Category Header with Animation */}
                 <div className="category-header flex items-center justify-between mb-6 md:mb-10">
                   <div>
                     <div className="flex items-center gap-2 md:gap-3">
@@ -356,9 +347,7 @@ export default function PortfolioPage() {
                   </span>
                 </div>
 
-                {/* Gallery with Touch Optimizations */}
                 <div className="relative">
-                  {/* Left Arrow - Hidden on mobile */}
                   <button
                     onClick={() => {
                       const gallery = document.getElementById(`gallery-${categoryIndex}`) as HTMLDivElement | null;
@@ -369,7 +358,6 @@ export default function PortfolioPage() {
                     <ChevronLeft className="w-6 h-6 text-gray-800" />
                   </button>
 
-                  {/* Scrollable Container */}
                   <div
                     id={`gallery-${categoryIndex}`}
                     className="flex gap-3 sm:gap-4 md:gap-6 overflow-x-auto pb-4 md:pb-6 scrollbar-hide scroll-smooth"
@@ -386,7 +374,6 @@ export default function PortfolioPage() {
                         style={{ scrollSnapAlign: "start" }}
                       >
                         <div className="group relative bg-white rounded-2xl md:rounded-3xl overflow-hidden border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                          {/* Image/Video with Hover Zoom */}
                           <div className="h-[200px] sm:h-[240px] md:h-[300px] overflow-hidden relative">
                             {item.isVideo ? (
                               <>
@@ -397,13 +384,11 @@ export default function PortfolioPage() {
                                   playsInline
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                {/* Video Play Icon */}
                                 <div className="absolute inset-0 flex items-center justify-center">
                                   <div className="w-14 h-14 md:w-20 md:h-20 bg-red-600/80 rounded-full flex items-center justify-center backdrop-blur-sm animate-pulse">
                                     <Play className="w-6 h-6 md:w-10 md:h-10 text-white ml-1" />
                                   </div>
                                 </div>
-                                {/* Video Badge */}
                                 <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-red-600 text-white text-[10px] md:text-xs px-2 py-1 md:px-3 md:py-1.5 rounded-full font-medium">
                                   Video
                                 </div>
@@ -419,7 +404,6 @@ export default function PortfolioPage() {
                             )}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             
-                            {/* Hover Overlay with Slide Up */}
                             <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
                               <p className="text-white/90 text-xs md:text-sm leading-relaxed mb-2 md:mb-3">
                                 {item.description}
@@ -434,7 +418,6 @@ export default function PortfolioPage() {
                             </div>
                           </div>
 
-                          {/* Content */}
                           <div className="p-4 md:p-6">
                             <div className="flex items-start justify-between">
                               <div>
@@ -458,7 +441,6 @@ export default function PortfolioPage() {
                     ))}
                   </div>
 
-                  {/* Right Arrow - Hidden on mobile */}
                   <button
                     onClick={() => {
                       const gallery = document.getElementById(`gallery-${categoryIndex}`) as HTMLDivElement | null;
@@ -470,7 +452,6 @@ export default function PortfolioPage() {
                   </button>
                 </div>
 
-                {/* Gallery Indicator with Animation */}
                 <div className="flex justify-center mt-3 md:mt-4 gap-1.5">
                   {section.items.map((_, idx) => (
                     <div
@@ -480,7 +461,6 @@ export default function PortfolioPage() {
                   ))}
                 </div>
 
-                {/* Mobile Scroll Hint with Animation */}
                 <div className="text-center mt-2 text-xs text-gray-400 md:hidden animate-bounce">
                   ← Swipe to see more →
                 </div>
@@ -489,16 +469,14 @@ export default function PortfolioPage() {
           })}
         </div>
 
-        {/* ===== CTA SECTION with Enhanced Effects ===== */}
+        {/* ===== CTA SECTION ===== */}
         <div className="px-4 sm:px-6 pb-16 md:pb-28">
           <div className="max-w-6xl mx-auto">
             <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-[30px] md:rounded-[40px] p-10 md:p-16 lg:p-20 text-center overflow-hidden">
-              {/* Background Decorations */}
               <div className="absolute inset-0 bg-[url('/location/marvel1.jpeg')] opacity-5 bg-cover bg-center" />
               <div className="absolute top-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-red-600/10 rounded-full blur-3xl animate-pulse" />
               <div className="absolute bottom-0 left-0 w-64 md:w-96 h-64 md:h-96 bg-red-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
               
-              {/* Pattern Dots */}
               <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[size:20px_20px]" />
 
               <div className="relative z-10">
