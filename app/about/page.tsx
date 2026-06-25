@@ -59,7 +59,7 @@ export default function AboutPage() {
       icon: FaAward,
       title: "Proven Results",
       description:
-        "Our track record speaks for itself — we've helped countless brands achieve measurable growth.",
+        "Our track record speaks for itself we've helped countless brands achieve measurable growth.",
     },
   ];
 
