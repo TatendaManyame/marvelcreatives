@@ -59,19 +59,22 @@ export default function PortfolioPage() {
         },
       });
 
-      const items = gsap.utils.toArray(".portfolio-card");
-      gsap.from(items, {
-        y: 80,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          once: true,
-        },
-      });
+      // Only animate on desktop to reduce mobile lag
+      if (window.innerWidth > 768) {
+        const items = gsap.utils.toArray(".portfolio-card");
+        gsap.from(items, {
+          y: 80,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            once: true,
+          },
+        });
+      }
 
       const headers = gsap.utils.toArray(".category-header");
       gsap.from(headers, {
@@ -184,7 +187,7 @@ export default function PortfolioPage() {
         },
         {
           title: "Corporate Branding 3",
-          image: "/branding/brnading3.jpeg",
+          image: "/branding/branding3.jpeg",
           description: "Modern brand identity and visual guidelines"
         },
         {
@@ -245,9 +248,10 @@ export default function PortfolioPage() {
         <div ref={heroRef} className="relative min-h-[50vh] md:min-h-[60vh] flex items-center overflow-hidden pt-16 md:pt-20">
           <div className="absolute inset-0">
             <Image
-              src="/services/business cards1.jpeg"
+              src="/portfolio/business-cards1.jpeg"
               alt="Portfolio Hero"
               fill
+              unoptimized
               className="object-cover"
               priority
             />
@@ -336,16 +340,13 @@ export default function PortfolioPage() {
                     id={`gallery-${categoryIndex}`}
                     className="flex gap-3 sm:gap-4 md:gap-6 overflow-x-auto pb-4 md:pb-6 scrollbar-hide scroll-smooth"
                     style={{ 
-                      scrollSnapType: "x mandatory",
-                      WebkitOverflowScrolling: "touch",
-                      touchAction: "pan-x"
+                      WebkitOverflowScrolling: "touch"
                     }}
                   >
                     {section.items.map((item, index) => (
                       <div
                         key={index}
                         className="portfolio-card flex-shrink-0 w-[260px] sm:w-[280px] md:w-[380px]"
-                        style={{ scrollSnapAlign: "start" }}
                       >
                         <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer">
                           <div className="relative w-full h-[200px] md:h-[280px] overflow-hidden bg-gray-100">
@@ -353,6 +354,7 @@ export default function PortfolioPage() {
                               src={item.image}
                               alt={item.title}
                               fill
+                              unoptimized
                               className="object-cover group-hover:scale-110 transition-transform duration-700"
                               sizes="(max-width: 640px) 260px, (max-width: 768px) 280px, 380px"
                             />
@@ -498,6 +500,7 @@ export default function PortfolioPage() {
                   src={lightboxImage}
                   alt={lightboxTitle}
                   fill
+                  unoptimized
                   className="object-contain rounded-lg"
                 />
               </div>
