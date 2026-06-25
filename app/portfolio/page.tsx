@@ -143,32 +143,27 @@ export default function PortfolioPage() {
       items: [
         {
           title: "Prevail Mart Branding",
-          image: "/services/prevailmart1.jpeg",
+          image: "/portfolio/prevailmart2.jpeg",
           description: "Complete brand identity for Prevail Mart retail chain"
         },
         {
           title: "Prevail Mart Identity",
-          image: "/services/prevailmart2.jpeg",
+          image: "/portfolio/prevailmart2.jpeg",
           description: "Brand identity system and visual guidelines"
         },
         {
           title: "Prevail Mart Collateral",
-          image: "/services/prevailmart3.jpeg",
+          image: "/portfolio/prevailmart4.jpeg",
           description: "Marketing collateral and brand materials"
         },
         {
-          title: "Prevail Mart Signage",
-          image: "/services/prevailmart4.jpeg",
-          description: "In-store signage and brand experience design"
-        },
-        {
           title: "Elephant Branding",
-          image: "/services/elephant branding.jpeg",
+          image: "/portfolio/elephant-branding.jpeg",
           description: "Complete brand identity and visual system for Elephant brand"
         },
         {
           title: "Elephant Identity",
-          image: "/services/elephant branding2.jpeg",
+          image: "/portfolio/elephant-branding2.jpeg",
           description: "Extended brand identity and collateral design"
         },
       ],
@@ -215,49 +210,28 @@ export default function PortfolioPage() {
       items: [
         {
           title: "Business Cards Design",
-          image: "/services/business cards1.jpeg",
+          image: "/portfolio/business-cards1.jpeg",
           description: "Premium business card designs for professional brands"
         },
         {
           title: "Business Cards Collection",
-          image: "/services/business cards2.jpeg",
+          image: "/portfolio/business-cards2.jpeg",
           description: "Variety of business card styles and finishes"
         },
         {
           title: "Billboard Advertising",
-          image: "/services/billboards1.jpeg",
+          image: "/portfolio/billboards1.jpeg",
           description: "High-impact billboard advertising solutions"
         },
         {
           title: "Outdoor Billboards",
-          image: "/services/billboards2.jpeg",
+          image: "/portfolio/billboards2.jpeg",
           description: "Strategic outdoor advertising campaigns"
         },
       ],
     },
-    {
-      category: "Creative Services",
-      icon: Sparkles,
-      items: [
-        {
-          title: "Banner Design",
-          image: "/services/banner1.jpeg",
-          description: "Professional banner designs for events and promotions"
-        },
-        {
-          title: "Marketing Banners",
-          image: "/services/banner2.jpeg",
-          description: "Creative banner solutions for brand visibility"
-        },
-        {
-          title: "Printing Process",
-          image: "/services/printing video.mp4",
-          description: "Watch our professional printing process in action",
-          isVideo: true
-        },
-      ],
-    },
   ];
+
 
   return (
     <>
@@ -347,7 +321,7 @@ export default function PortfolioPage() {
                   </span>
                 </div>
 
-                <div className="relative">
+                <div className="relative group">
                   <button
                     onClick={() => {
                       const gallery = document.getElementById(`gallery-${categoryIndex}`) as HTMLDivElement | null;
@@ -373,35 +347,15 @@ export default function PortfolioPage() {
                         className="portfolio-card flex-shrink-0 w-[260px] sm:w-[280px] md:w-[380px]"
                         style={{ scrollSnapAlign: "start" }}
                       >
-                        <div className="group relative bg-white rounded-2xl md:rounded-3xl overflow-hidden border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                          <div className="h-[200px] sm:h-[240px] md:h-[300px] overflow-hidden relative">
-                            {item.isVideo ? (
-                              <>
-                                <video
-                                  src={item.image}
-                                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                  muted
-                                  playsInline
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                  <div className="w-14 h-14 md:w-20 md:h-20 bg-red-600/80 rounded-full flex items-center justify-center backdrop-blur-sm animate-pulse">
-                                    <Play className="w-6 h-6 md:w-10 md:h-10 text-white ml-1" />
-                                  </div>
-                                </div>
-                                <div className="absolute top-3 right-3 md:top-4 md:right-4 bg-red-600 text-white text-[10px] md:text-xs px-2 py-1 md:px-3 md:py-1.5 rounded-full font-medium">
-                                  Video
-                                </div>
-                              </>
-                            ) : (
-                              <Image
-                                src={item.image}
-                                alt={item.title}
-                                fill
-                                className="object-cover group-hover:scale-110 transition-transform duration-700"
-                                sizes="(max-width: 640px) 260px, (max-width: 768px) 280px, 380px"
-                              />
-                            )}
+                        <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer">
+                          <div className="relative w-full h-[200px] md:h-[280px] overflow-hidden bg-gray-100">
+                            <Image
+                              src={item.image}
+                              alt={item.title}
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-700"
+                              sizes="(max-width: 640px) 260px, (max-width: 768px) 280px, 380px"
+                            />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             
                             <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-6 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
@@ -409,11 +363,11 @@ export default function PortfolioPage() {
                                 {item.description}
                               </p>
                               <button
-                                onClick={() => openLightbox(item.image, item.title, item.isVideo || false)}
+                                onClick={() => openLightbox(item.image, item.title, false)}
                                 className="inline-flex items-center gap-1 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white rounded-full text-xs md:text-sm transition-all duration-300 w-fit group-hover:scale-105"
                               >
-                                {item.isVideo ? 'Play Video' : 'View Project'}
-                                {item.isVideo ? <Play className="w-3 h-3 md:w-4 md:h-4" /> : <ExternalLink className="w-3 h-3 md:w-4 md:h-4" />}
+                                View Project
+                                <ExternalLink className="w-3 h-3 md:w-4 md:h-4" />
                               </button>
                             </div>
                           </div>
