@@ -131,7 +131,7 @@ export default function Footer() {
 
               <div className="flex items-center gap-3 group">
                 <FaEnvelope className="text-white group-hover:text-red-500 transition-colors duration-300" />
-                <span className="group-hover:text-white transition-colors duration-300">info@marvelcreatives.ae</span>
+                <span className="group-hover:text-white transition-colors duration-300">creativesmarvel@gmail.com</span>
               </div>
 
               <div className="flex items-center gap-3 group">

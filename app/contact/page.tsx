@@ -16,8 +16,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const heroImages = [
-  //"/services/business cards1.jpeg",
-  //"/services/business cards2.jpeg",
   "/location/marvel1.jpeg",
   "/location/marvel2.jpeg",
 ];
@@ -48,6 +46,12 @@ const faqs = [
 export default function ContactPage() {
   const [active, setActive] = useState<number | null>(0);
   const [slide, setSlide] = useState(0);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
 
   // HERO AUTO SLIDER
   useEffect(() => {
@@ -57,6 +61,41 @@ export default function ContactPage() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleWhatsAppSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Format the message for WhatsApp
+    const phoneNumber = "263788991893"; // Your WhatsApp number without +
+    const message = `Hello Marvel Creatives!%0A%0A` +
+      `*Name:* ${formData.name}%0A` +
+      `*Email:* ${formData.email}%0A` +
+      `*Phone:* ${formData.phone || "Not provided"}%0A%0A` +
+      `*Message:*%0A${formData.message}`;
+    
+    // Create WhatsApp URL
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    
+    // Open WhatsApp in new tab
+    window.open(whatsappUrl, "_blank");
+    
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+  };
 
   return (
     <>
@@ -122,25 +161,36 @@ export default function ContactPage() {
 
           {/* CONTACT CARDS */}
           <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-6 -mt-10 relative z-20">
-            <div className="bg-white/95 backdrop-blur-md border border-gray-100 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
+            <a 
+              href="tel:+263788991893"
+              className="bg-white/95 backdrop-blur-md border border-gray-100 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group cursor-pointer"
+            >
               <div className="w-14 h-14 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <FaPhoneAlt className="text-red-600 text-2xl" />
               </div>
               <h3 className="font-bold text-gray-900 text-lg">Call Us</h3>
               <p className="text-gray-600 mt-1">+263 788 991 893</p>
               <p className="text-gray-400 text-xs mt-2">Mon-Fri 8am-5pm</p>
-            </div>
+            </a>
 
-            <div className="bg-white/95 backdrop-blur-md border border-gray-100 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
+            <a 
+              href="mailto:creativesmarvel@gmail.com"
+              className="bg-white/95 backdrop-blur-md border border-gray-100 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group cursor-pointer"
+            >
               <div className="w-14 h-14 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <FaEnvelope className="text-red-600 text-2xl" />
               </div>
               <h3 className="font-bold text-gray-900 text-lg">Email</h3>
-              <p className="text-gray-600 mt-1">info@marvelcreatives.ae</p>
+              <p className="text-gray-600 mt-1">creativesmarvel@gmail.com</p>
               <p className="text-gray-400 text-xs mt-2">We reply within 24hrs</p>
-            </div>
+            </a>
 
-            <div className="bg-white/95 backdrop-blur-md border border-gray-100 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
+            <a 
+              href="https://maps.google.com/?q=88+Central+Avenue+Harare+Zimbabwe"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white/95 backdrop-blur-md border border-gray-100 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group cursor-pointer"
+            >
               <div className="w-14 h-14 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <FaMapMarkerAlt className="text-red-600 text-2xl" />
               </div>
@@ -148,16 +198,21 @@ export default function ContactPage() {
               <p className="text-gray-600 mt-1">88 Central Avenue, Harare</p>
               <p className="text-gray-500 text-sm mt-1">Cnr 8th & Central Avenue</p>
               <p className="text-gray-500 text-sm">@The Waves Plaza Complex</p>
-            </div>
+            </a>
 
-            <div className="bg-white/95 backdrop-blur-md border border-gray-100 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group">
+            <a 
+              href="https://wa.me/263788991893"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white/95 backdrop-blur-md border border-gray-100 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group cursor-pointer"
+            >
               <div className="w-14 h-14 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <FaWhatsapp className="text-red-600 text-2xl" />
               </div>
               <h3 className="font-bold text-gray-900 text-lg">WhatsApp</h3>
               <p className="text-gray-600 mt-1">+263 788 991 893</p>
               <p className="text-gray-400 text-xs mt-2">Quick response available</p>
-            </div>
+            </a>
           </div>
 
           {/* FORM + MAP */}
@@ -172,12 +227,16 @@ export default function ContactPage() {
                 </h2>
               </div>
 
-              <form className="space-y-5">
+              <form onSubmit={handleWhatsAppSubmit} className="space-y-5">
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Your Name</label>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Your Name *</label>
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="John Doe"
+                    required
                     className="w-full rounded-2xl border border-gray-200 p-4 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all"
                   />
                 </div>
@@ -186,6 +245,9 @@ export default function ContactPage() {
                   <label className="text-sm font-medium text-gray-700 mb-1 block">Email Address</label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="john@example.com"
                     className="w-full rounded-2xl border border-gray-200 p-4 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all"
                   />
@@ -194,27 +256,39 @@ export default function ContactPage() {
                 <div>
                   <label className="text-sm font-medium text-gray-700 mb-1 block">Phone Number</label>
                   <input
-                    type="text"
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     placeholder="+263 78 123 4567"
                     className="w-full rounded-2xl border border-gray-200 p-4 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">Your Message</label>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">Your Message *</label>
                   <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     rows={5}
                     placeholder="Tell us about your project..."
+                    required
                     className="w-full rounded-2xl border border-gray-200 p-4 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-4 rounded-2xl font-semibold transition-all hover:scale-[1.02] shadow-lg shadow-red-600/30"
+                  className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-4 rounded-2xl font-semibold transition-all hover:scale-[1.02] shadow-lg shadow-green-600/30 flex items-center justify-center gap-3"
                 >
-                  Send Message
+                  <FaWhatsapp className="text-2xl" />
+                  Send via WhatsApp
                 </button>
+
+                <p className="text-center text-sm text-gray-500 mt-2">
+                  We&apos;ll respond instantly on WhatsApp
+                </p>
               </form>
             </div>
 
@@ -303,7 +377,7 @@ export default function ContactPage() {
             </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-red-600 to-red-400 mx-auto mb-10 rounded-full" />
 
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-center gap-4 flex-wrap">
               <a
                 href="https://www.instagram.com/marvel.creatives"
                 target="_blank"
@@ -333,7 +407,7 @@ export default function ContactPage() {
                 href="https://wa.me/263788991893"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-16 h-16 rounded-full bg-gradient-to-br from-red-600 to-red-700 text-white flex items-center justify-center text-xl hover:scale-110 hover:shadow-xl transition-all duration-300 shadow-lg shadow-red-600/30"
+                className="w-16 h-16 rounded-full bg-gradient-to-br from-green-600 to-green-700 text-white flex items-center justify-center text-xl hover:scale-110 hover:shadow-xl transition-all duration-300 shadow-lg shadow-green-600/30"
                 aria-label="Chat on WhatsApp"
               >
                 <FaWhatsapp />
