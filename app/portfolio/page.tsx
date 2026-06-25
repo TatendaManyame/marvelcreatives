@@ -32,35 +32,46 @@ export default function PortfolioPage() {
   const [lightboxImage, setLightboxImage] = useState("");
   const [lightboxTitle, setLightboxTitle] = useState("");
   const [isVideo, setIsVideo] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // ===== Hero Animations =====
-      gsap.from(titleRef.current, {
-        y: 60,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top 80%",
-        },
-      });
+      // ===== Hero Animations - only on desktop =====
+      if (!isMobile) {
+        gsap.from(titleRef.current, {
+          y: 60,
+          opacity: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top 80%",
+          },
+        });
 
-      gsap.from(descRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 1,
-        delay: 0.3,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top 80%",
-        },
-      });
+        gsap.from(descRef.current, {
+          y: 40,
+          opacity: 0,
+          duration: 1,
+          delay: 0.3,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "top 80%",
+          },
+        });
 
-      // Only animate on desktop to reduce mobile lag
-      if (window.innerWidth > 768) {
         const items = gsap.utils.toArray(".portfolio-card");
         gsap.from(items, {
           y: 80,
@@ -74,38 +85,47 @@ export default function PortfolioPage() {
             once: true,
           },
         });
-      }
 
-      const headers = gsap.utils.toArray(".category-header");
-      gsap.from(headers, {
-        x: -40,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-        },
-      });
-
-      const indicators = document.querySelectorAll(".indicator-dot");
-      indicators.forEach((dot, i) => {
-        gsap.to(dot, {
-          scale: 1.5,
-          opacity: 0.5,
-          duration: 1,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-          delay: i * 0.2,
+        const headers = gsap.utils.toArray(".category-header");
+        gsap.from(headers, {
+          x: -40,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+          },
         });
-      });
 
+        const indicators = document.querySelectorAll(".indicator-dot");
+        indicators.forEach((dot, i) => {
+          gsap.to(dot, {
+            scale: 1.5,
+            opacity: 0.5,
+            duration: 1,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: i * 0.2,
+          });
+        });
+      } else {
+        // On mobile, just set initial state without animations
+        if (titleRef.current) {
+          titleRef.current.style.opacity = "1";
+          titleRef.current.style.transform = "translateY(0)";
+        }
+        if (descRef.current) {
+          descRef.current.style.opacity = "1";
+          descRef.current.style.transform = "translateY(0)";
+        }
+      }
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   const openLightbox = (image: string, title: string, isVideoFile = false) => {
     setLightboxImage(image);
@@ -244,7 +264,7 @@ export default function PortfolioPage() {
         ref={sectionRef}
         className="overflow-hidden bg-white"
       >
-        {/* ===== HERO with Enhanced Animations ===== */}
+        {/* ===== HERO ===== */}
         <div ref={heroRef} className="relative min-h-[50vh] md:min-h-[60vh] flex items-center overflow-hidden pt-16 md:pt-20">
           <div className="absolute inset-0">
             <Image
@@ -260,27 +280,32 @@ export default function PortfolioPage() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent" />
           </div>
 
-          <div className="absolute top-20 right-20 w-64 h-64 bg-red-600/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 left-20 w-96 h-96 bg-red-600/5 rounded-full blur-3xl animate-pulse delay-1000" />
-          
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-2 h-2 bg-red-400/20 rounded-full animate-float"
-                style={{
-                  left: `${10 + i * 15}%`,
-                  top: `${20 + i * 10}%`,
-                  animationDelay: `${i * 0.5}s`,
-                  animationDuration: `${4 + i * 0.5}s`
-                }}
-              />
-            ))}
-          </div>
+          {/* Background animations - hidden on mobile */}
+          {!isMobile && (
+            <>
+              <div className="absolute top-20 right-20 w-64 h-64 bg-red-600/10 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute bottom-20 left-20 w-96 h-96 bg-red-600/5 rounded-full blur-3xl animate-pulse delay-1000" />
+              
+              <div className="absolute inset-0 pointer-events-none">
+                {[...Array(6)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-2 h-2 bg-red-400/20 rounded-full animate-float"
+                    style={{
+                      left: `${10 + i * 15}%`,
+                      top: `${20 + i * 10}%`,
+                      animationDelay: `${i * 0.5}s`,
+                      animationDuration: `${4 + i * 0.5}s`
+                    }}
+                  />
+                ))}
+              </div>
+            </>
+          )}
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20 w-full">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded-full bg-red-600/20 border border-red-500/30 px-4 py-1.5 md:px-5 md:py-2 text-xs md:text-sm font-medium text-red-400 mb-4 md:mb-6 animate-pulse">
+              <div className="inline-flex items-center gap-2 rounded-full bg-red-600/20 border border-red-500/30 px-4 py-1.5 md:px-5 md:py-2 text-xs md:text-sm font-medium text-red-400 mb-4 md:mb-6">
                 <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-red-500 rounded-full" />
                 Our Portfolio
               </div>
@@ -292,7 +317,7 @@ export default function PortfolioPage() {
                 </span>
               </h1>
 
-              <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-red-500 to-red-400 mt-4 md:mt-6 rounded-full animate-pulse" />
+              <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-red-500 to-red-400 mt-4 md:mt-6 rounded-full" />
 
               <p ref={descRef} className="mt-4 md:mt-6 text-gray-300 text-base md:text-lg leading-relaxed max-w-lg">
                 Explore our diverse portfolio of branding, print materials, and creative 
@@ -417,7 +442,7 @@ export default function PortfolioPage() {
                   ))}
                 </div>
 
-                <div className="text-center mt-2 text-xs text-gray-400 md:hidden animate-bounce">
+                <div className="text-center mt-2 text-xs text-gray-400 md:hidden">
                   ← Swipe to see more →
                 </div>
               </div>
@@ -430,13 +455,16 @@ export default function PortfolioPage() {
           <div className="max-w-6xl mx-auto">
             <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-[30px] md:rounded-[40px] p-10 md:p-16 lg:p-20 text-center overflow-hidden">
               <div className="absolute inset-0 bg-[url('/location/marvel1.jpeg')] opacity-5 bg-cover bg-center" />
-              <div className="absolute top-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-red-600/10 rounded-full blur-3xl animate-pulse" />
-              <div className="absolute bottom-0 left-0 w-64 md:w-96 h-64 md:h-96 bg-red-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
-              
-              <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[size:20px_20px]" />
+              {!isMobile && (
+                <>
+                  <div className="absolute top-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-red-600/10 rounded-full blur-3xl animate-pulse" />
+                  <div className="absolute bottom-0 left-0 w-64 md:w-96 h-64 md:h-96 bg-red-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
+                  <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[size:20px_20px]" />
+                </>
+              )}
 
               <div className="relative z-10">
-                <span className="inline-block px-4 md:px-5 py-1.5 md:py-2 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-[10px] md:text-xs tracking-[0.3em] backdrop-blur-sm mb-4 md:mb-6 animate-pulse">
+                <span className="inline-block px-4 md:px-5 py-1.5 md:py-2 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-[10px] md:text-xs tracking-[0.3em] backdrop-blur-sm mb-4 md:mb-6">
                   LET&apos;S CREATE TOGETHER
                 </span>
 
