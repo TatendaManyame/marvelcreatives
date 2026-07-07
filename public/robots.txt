@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.marvelcreatives.co
+
+# Sitemaps
+Sitemap: https://www.marvelcreatives.co/sitemap.xml
