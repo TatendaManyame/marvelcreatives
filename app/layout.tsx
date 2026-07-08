@@ -1,8 +1,10 @@
+// app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import WhatsAppButton from "./components/WhatsAppButton";
+import Loader from "./components/Loader";
 
 export const dynamic = "force-static";
 export const revalidate = 0;
@@ -19,7 +21,6 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -27,24 +28,16 @@ export const viewport: Viewport = {
   themeColor: "#ffffff",
 };
 
-
 export const metadata: Metadata = {
-
-  metadataBase: new URL(
-    "https://marvelcreatives.vercel.app"
-  ),
+  metadataBase: new URL("https://www.marvelcreatives.co"),
 
   title: {
-    default:
-      "Marvel Creatives | Branding, Signage, Graphic Design & Printing Zimbabwe",
-    template:
-      "%s | Marvel Creatives",
+    default: "Marvel Creatives | Branding, Signage, Graphic Design & Printing Zimbabwe",
+    template: "%s | Marvel Creatives",
   },
-
 
   description:
     "Marvel Creatives is a creative agency in Harare, Zimbabwe offering branding, signage, web design, graphic design, digital marketing, printing and creative solutions.",
-
 
   keywords: [
     "branding Zimbabwe",
@@ -58,22 +51,18 @@ export const metadata: Metadata = {
     "Marvel Creatives",
   ],
 
-
   authors: [
     {
       name: "Marvel Creatives",
     },
   ],
 
-
   creator: "Marvel Creatives",
   publisher: "Marvel Creatives",
-
 
   robots: {
     index: true,
     follow: true,
-
     googleBot: {
       index: true,
       follow: true,
@@ -83,9 +72,7 @@ export const metadata: Metadata = {
     },
   },
 
-
   icons: {
-
     icon: [
       {
         url: "/icon0.svg",
@@ -96,101 +83,51 @@ export const metadata: Metadata = {
         type: "image/x-icon",
       },
     ],
-
-    apple:
-      "/apple-icon.png",
-
+    apple: "/apple-icon.png",
   },
 
-
-  manifest:
-    "/manifest.json",
-
+  manifest: "/manifest.json",
 
   openGraph: {
-
-    title:
-      "Marvel Creatives | Branding & Creative Agency Zimbabwe",
-
-    description:
-      "Branding, signage, web design, graphic design, digital marketing and printing services in Harare Zimbabwe.",
-
-    url:
-      "https://marvelcreatives.vercel.app",
-
-    siteName:
-      "Marvel Creatives",
-
-    locale:
-      "en_ZW",
-
-    type:
-      "website",
-
-
+    title: "Marvel Creatives | Branding & Creative Agency Zimbabwe",
+    description: "Branding, signage, web design, graphic design, digital marketing and printing services in Harare Zimbabwe.",
+    url: "https://www.marvelcreatives.co",
+    siteName: "Marvel Creatives",
+    locale: "en_ZW",
+    type: "website",
     images: [
       {
-        url:
-          "/icon1.png",
-
-        width:
-          1200,
-
-        height:
-          630,
-
-        alt:
-          "Marvel Creatives Logo",
+        url: "/icon1.png",
+        width: 1200,
+        height: 630,
+        alt: "Marvel Creatives Logo",
       },
     ],
   },
 
-
   twitter: {
-
-    card:
-      "summary_large_image",
-
-    title:
-      "Marvel Creatives",
-
-    description:
-      "Branding, signage, web design, digital marketing and printing services in Zimbabwe.",
-
-    images:
-      [
-        "/icon1.png"
-      ],
+    card: "summary_large_image",
+    title: "Marvel Creatives",
+    description: "Branding, signage, web design, digital marketing and printing services in Zimbabwe.",
+    images: ["/icon1.png"],
   },
-
 
   other: {
-
-    "apple-mobile-web-app-title":
-      "marvelcreatives",
-
+    "apple-mobile-web-app-title": "marvelcreatives",
   },
-
-
 };
-
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-
-
   return (
-
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressHydrationWarning
     >
-
-
       <body
         className="
           bg-white 
@@ -198,8 +135,8 @@ export default function RootLayout({
           overflow-x-hidden
         "
       >
-
-
+        <Loader />
+        
         <div
           className="
             min-h-screen 
@@ -208,8 +145,6 @@ export default function RootLayout({
             relative
           "
         >
-
-
           <main
             id="main-content"
             className="
@@ -219,30 +154,16 @@ export default function RootLayout({
               overflow-x-hidden
             "
           >
-
-
-            <div
-              className="w-full"
-            >
-
+            <div className="w-full">
               {children}
-
             </div>
-
-
           </main>
-
 
           {/* WhatsApp Button Container - Fixed positioning wrapper */}
           <div className="fixed bottom-40 right-6 z-50">
             <WhatsAppButton />
           </div>
-
-
         </div>
-
-
-
 
         <a
           href="#main-content"
@@ -260,61 +181,30 @@ export default function RootLayout({
             focus:rounded-lg
           "
         >
-
           Skip to content
-
         </a>
-
-
 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
-
-              "@context":
-                "https://schema.org",
-
-              "@type":
-                "LocalBusiness",
-
-              name:
-                "Marvel Creatives",
-
-              image:
-                "https://marvelcreatives.vercel.app/icon1.png",
-
-              logo:
-                "https://marvelcreatives.vercel.app/icon1.png",
-
-              url:
-                "https://marvelcreatives.vercel.app",
-
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "Marvel Creatives",
+              image: "https://www.marvelcreatives.co/icon1.png",
+              logo: "https://www.marvelcreatives.co/icon1.png",
+              url: "https://www.marvelcreatives.co",
               description:
                 "Creative agency in Harare Zimbabwe offering branding, signage, web design, graphic design, digital marketing and printing.",
-
-
               address: {
-
-                "@type":
-                  "PostalAddress",
-
-                addressLocality:
-                  "Harare",
-
-                addressCountry:
-                  "ZW",
-
+                "@type": "PostalAddress",
+                addressLocality: "Harare",
+                addressCountry: "ZW",
               },
-
             }),
           }}
         />
-
-
       </body>
-
     </html>
-
   );
 }
