@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import WhatsAppButton from "./components/WhatsAppButton";
-import Loader from "./components/Loader";
+import ClientLayout from "./components/ClientLayout";
 
 export const dynamic = "force-static";
 export const revalidate = 0;
@@ -25,7 +25,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#ffffff",
+  themeColor: "#1a1a1a",
 };
 
 export const metadata: Metadata = {
@@ -97,7 +97,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/icon1.png",
+        url: "/logo/logo.png",
         width: 1200,
         height: 630,
         alt: "Marvel Creatives Logo",
@@ -109,7 +109,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Marvel Creatives",
     description: "Branding, signage, web design, digital marketing and printing services in Zimbabwe.",
-    images: ["/icon1.png"],
+    images: ["/logo/logo.png"],
   },
 
   other: {
@@ -135,75 +135,132 @@ export default function RootLayout({
           overflow-x-hidden
         "
       >
-        <Loader />
-        
-        <div
-          className="
-            min-h-screen 
-            flex 
-            flex-col
-            relative
-          "
-        >
-          <main
-            id="main-content"
+        <ClientLayout>
+          <div
             className="
-              flex-1 
-              w-full 
-              max-w-[100vw]
-              overflow-x-hidden
+              min-h-screen 
+              flex 
+              flex-col
+              relative
             "
           >
-            <div className="w-full">
-              {children}
+            <main
+              id="main-content"
+              className="
+                flex-1 
+                w-full 
+                max-w-[100vw]
+                overflow-x-hidden
+              "
+            >
+              <div className="w-full">
+                {children}
+              </div>
+            </main>
+
+            {/* WhatsApp Button Container - Fixed positioning wrapper */}
+            <div className="fixed bottom-40 right-6 z-50">
+              <WhatsAppButton />
             </div>
-          </main>
-
-          {/* WhatsApp Button Container - Fixed positioning wrapper */}
-          <div className="fixed bottom-40 right-6 z-50">
-            <WhatsAppButton />
           </div>
-        </div>
 
-        <a
-          href="#main-content"
-          className="
-            sr-only
-            focus:not-sr-only
-            focus:absolute
-            focus:top-4
-            focus:left-4
-            focus:z-[100]
-            focus:bg-red-600
-            focus:text-white
-            focus:px-4
-            focus:py-2
-            focus:rounded-lg
-          "
-        >
-          Skip to content
-        </a>
+          <a
+            href="#main-content"
+            className="
+              sr-only
+              focus:not-sr-only
+              focus:absolute
+              focus:top-4
+              focus:left-4
+              focus:z-[100]
+              focus:bg-red-600
+              focus:text-white
+              focus:px-4
+              focus:py-2
+              focus:rounded-lg
+            "
+          >
+            Skip to content
+          </a>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              name: "Marvel Creatives",
-              image: "https://www.marvelcreatives.co/icon1.png",
-              logo: "https://www.marvelcreatives.co/icon1.png",
-              url: "https://www.marvelcreatives.co",
-              description:
-                "Creative agency in Harare Zimbabwe offering branding, signage, web design, graphic design, digital marketing and printing.",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Harare",
-                addressCountry: "ZW",
-              },
-            }),
-          }}
-        />
+          {/* Organization Structured Data for Knowledge Panel */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Marvel Creatives",
+                "url": "https://www.marvelcreatives.co",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://www.marvelcreatives.co/logo/logo.png",
+                  "width": 1200,
+                  "height": 630,
+                  "caption": "Marvel Creatives Logo"
+                },
+                "image": "https://www.marvelcreatives.co/logo/logo.png",
+                "description": "Creative agency in Harare Zimbabwe offering branding, signage, web design, graphic design, digital marketing and printing.",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Harare",
+                  "addressCountry": "ZW"
+                },
+                "contactPoint": {
+                  "@type": "ContactPoint",
+                  "contactType": "customer service",
+                  "availableLanguage": ["English"]
+                },
+                "sameAs": [
+                  "https://www.instagram.com/marvel.crea",
+                  "https://www.facebook.com/MarvelCreatives"
+                ]
+              }),
+            }}
+          />
+
+          {/* Local Business Structured Data */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                "name": "Marvel Creatives",
+                "url": "https://www.marvelcreatives.co",
+                "logo": "https://www.marvelcreatives.co/logo/logo.png",
+                "image": "https://www.marvelcreatives.co/logo/logo.png",
+                "description": "Branding, signage, web design, graphic design, digital marketing and printing services in Harare Zimbabwe.",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Harare",
+                  "addressCountry": "ZW"
+                },
+                "priceRange": "$$",
+                "telephone": "+263...",
+                "openingHours": "Mo-Fr 08:00-17:00"
+              }),
+            }}
+          />
+
+          {/* Website Structured Data */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "Marvel Creatives",
+                "url": "https://www.marvelcreatives.co",
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": "https://www.marvelcreatives.co/search?q={search_term_string}",
+                  "query-input": "required name=search_term_string"
+                }
+              }),
+            }}
+          />
+        </ClientLayout>
       </body>
     </html>
   );
