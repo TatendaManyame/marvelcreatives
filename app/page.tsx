@@ -17,7 +17,7 @@ export default function Home() {
       {/* Hidden logo for SEO and social sharing */}
       <div className="sr-only" aria-hidden="true">
         <Image
-          src="/logo/logo.png"
+          src="/logo/logo 2.png"
           alt="Marvel Creatives Logo"
           width={1200}
           height={630}
