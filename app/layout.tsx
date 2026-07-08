@@ -97,7 +97,8 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/logo/logo.png",
+        // Use logo 2.png (black text) for Open Graph - works on white background
+        url: "/logo/logo 2.png",
         width: 1200,
         height: 630,
         alt: "Marvel Creatives Logo",
@@ -109,7 +110,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Marvel Creatives",
     description: "Branding, signage, web design, digital marketing and printing services in Zimbabwe.",
-    images: ["/logo/logo.png"],
+    images: ["/logo/logo 2.png"],
   },
 
   other: {
@@ -183,7 +184,7 @@ export default function RootLayout({
             Skip to content
           </a>
 
-          {/* Organization Structured Data for Knowledge Panel */}
+          {/* Organization Structured Data - Use logo 2.png for better visibility */}
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -194,12 +195,12 @@ export default function RootLayout({
                 "url": "https://www.marvelcreatives.co",
                 "logo": {
                   "@type": "ImageObject",
-                  "url": "https://www.marvelcreatives.co/logo/logo.png",
+                  "url": "https://www.marvelcreatives.co/logo/logo 2.png",
                   "width": 1200,
                   "height": 630,
                   "caption": "Marvel Creatives Logo"
                 },
-                "image": "https://www.marvelcreatives.co/logo/logo.png",
+                "image": "https://www.marvelcreatives.co/logo/logo 2.png",
                 "description": "Creative agency in Harare Zimbabwe offering branding, signage, web design, graphic design, digital marketing and printing.",
                 "address": {
                   "@type": "PostalAddress",
@@ -219,7 +220,7 @@ export default function RootLayout({
             }}
           />
 
-          {/* Local Business Structured Data */}
+          {/* Local Business Structured Data - Use logo 2.png */}
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
@@ -228,8 +229,8 @@ export default function RootLayout({
                 "@type": "LocalBusiness",
                 "name": "Marvel Creatives",
                 "url": "https://www.marvelcreatives.co",
-                "logo": "https://www.marvelcreatives.co/logo/logo.png",
-                "image": "https://www.marvelcreatives.co/logo/logo.png",
+                "logo": "https://www.marvelcreatives.co/logo/logo 2.png",
+                "image": "https://www.marvelcreatives.co/logo/logo 2.png",
                 "description": "Branding, signage, web design, graphic design, digital marketing and printing services in Harare Zimbabwe.",
                 "address": {
                   "@type": "PostalAddress",
@@ -237,26 +238,7 @@ export default function RootLayout({
                   "addressCountry": "ZW"
                 },
                 "priceRange": "$$",
-                "telephone": "+263...",
                 "openingHours": "Mo-Fr 08:00-17:00"
-              }),
-            }}
-          />
-
-          {/* Website Structured Data */}
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "name": "Marvel Creatives",
-                "url": "https://www.marvelcreatives.co",
-                "potentialAction": {
-                  "@type": "SearchAction",
-                  "target": "https://www.marvelcreatives.co/search?q={search_term_string}",
-                  "query-input": "required name=search_term_string"
-                }
               }),
             }}
           />
